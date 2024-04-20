@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #fce6da; 
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .welcome-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        .welcome-content {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1d3557; 
+            font-size: 3em; 
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="welcome-container">
+        <div class="welcome-content">
+            <h1>Welcome to your To-Do List Manager</h1>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock %}

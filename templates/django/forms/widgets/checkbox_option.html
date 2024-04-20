@@ -1,0 +1,9 @@
+{# templates/your_app/widgets/checkbox_option.html #}
+{% with complete=form.complete %}
+    <div class="form-check">
+        {{ widget }}
+        <label class="form-check-label" for="{{ complete }}">
+            {{ widget.label }}
+        </label>
+    </div>
+{% endwith %}

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex align-items-center justify-content-between">
+        <h1 class="h3">Task Manager</h1>
+        <button type="button" class="btn btn-primary" onclick="window.location.href='{% url "tasks:formu" %}'">New Task</button>
+    </div>
+
+    <table class="table mt-4">
+        <thead class="thead-dark table caption-top" >
+            <tr>
+                <th>Task</th>
+                <th>Description</th>
+                <th>Toggle Complete</th>
+                <th>Due Date</th>
+
+            </tr>
+        </thead>
+        <tbody  class="table-group-divider">
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>
+                        <form method="post" action="{% url 'tasks:mark_complete' task.id %}" class="form-check">
+                            {% csrf_token %}
+                            <input type="checkbox" id="task_{{ task.id }}" name="task_{{ task.id }}" {% if task.complete %}checked{% endif %} class="form-check-input" onchange="this.form.submit()">
+                            <label for="task_{{ task.id }}" class="form-check-label">Complete</label>
+                        </form>
+                    </td>
+                    <td>{{ task.deadline|date:"F j, Y" }}</td>
+                    <td>
+                        <form method="post" action="{% url 'tasks:delete_task' task.id %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                    <td>
+                        <a href="{% url 'tasks:edit_task' task.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

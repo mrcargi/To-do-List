@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+
+    <nav class="navbar bg-dark border-bottom border-body navbar-expand-lg bg-body-tertiary justify-content-between" data-bs-theme="dark">
+        <div class="container-fluid nav__container">
+            <a class="navbar-brand" href="#">Tools</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="nav__container--div collapse navbar-collapse" id="navbarNav">
+                <ul class="nav__container--ul navbar-nav">
+
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item ">
+                            <span class="nav-link nav__container--welcome navbar-text">Welcome {{ user.username | upper }}</span>
+                        </li>
+                        <li class="nav-item {% if activepage == 'home' %} nav__container--this-page{% endif %}">
+                            <a class="nav-link active" aria-current="page" href="{% url "home" %}">Home</a>
+                        </li>
+                        <li class= "nav-item {% if activepage == 'index' %}nav__container--this-page{% endif %}" >
+                            <a class="nav-link active " href="{% url 'tasks:index' %}">Tasklist</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a class="nav__container--log-out nav-link" href = "{% url 'exit' %}">Log Out</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link"  href = "{% url 'login' %}">Sign In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  href = "{% url 'register' %}">Sing Up</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                {% if request.user.is_authenticated %}
+                    <!-- <ul class="nav__container--li navbar-nav ms-4">
+                        <li class="nav-item">
+                            <a class="nav-link" href = "{% url 'exit' %}">Log Out</a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="navbar-text">Welcome {{ user.username | upper }}</span>
+                        </li>
+                    </ul> -->
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <style>
+
+        
+        .nav__container{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            font-family: 'Arial';
+            font-size: large;
+            
+            
+        }
+
+        .nav__container--div{
+            display: flex;
+            justify-content: space-between;    
+            flex-grow: 0;
+
+        }
+
+        .nav__container--ul{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: auto;
+            gap: 10px;
+        }
+
+        .nav__container--log-out{
+            color: white;
+            background-color: rgb(228, 31, 31);
+            border-radius: 10px;
+            padding: 4px 8px;
+        }
+
+        .nav__container--this-page{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav__container--this-page:hover a{
+            color: white;
+        }
+
+        .nav__container--this-page > a{
+            z-index: 3;
+        }
+        
+        .nav__container--this-page::before{
+            position: absolute;
+            content: "";
+            background-color: royalblue;
+            width: 100%;
+            height: 4px;
+            bottom: 7px;
+            transition: all .15s;            
+        }
+
+        .nav__container--this-page:hover::before {
+            height: 25px;
+        }
+
+
+        .nav__container--welcome{
+            color: white;
+        }
+        .nav__container--this-page.active {
+            background-color: royalblue
+        }
+        .nav-link {
+            color:white;
+        }
+
+    </style>
+
+    {% block content %}
+    {% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
